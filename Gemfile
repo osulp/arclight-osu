@@ -6,6 +6,7 @@ ruby '3.2.1'
 # Application gems
 gem 'arclight'
 gem 'devise'
+gem 'blacklight_range_limit'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.2'

@@ -356,6 +356,7 @@ PLATFORMS
 
 DEPENDENCIES
   arclight
+  blacklight_range_limit
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.0)
   byebug
