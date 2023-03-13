@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '3.2.1'
 
+# Application gems
+gem 'arclight'
+gem 'devise'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.2'
 # Use mysql as the database for Active Record
@@ -55,5 +59,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'arclight'
-
+group :development, :test do
+  gem 'solr_wrapper', '>= 0.3'
+end
+gem 'rsolr', '>= 1.0', '< 3'
+gem 'bootstrap', '~> 4.0'
+gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
+gem 'jquery-rails'
