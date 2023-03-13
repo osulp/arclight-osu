@@ -1,0 +1,103 @@
+version: '3.8'
+
+volumes:
+  app:
+  db:
+  bundled:
+
+
+networks:
+  external:
+  internal:
+
+
+x-common-variables:
+  &common-variables
+  ACTIVE_JOB_QUEUE_ADAPTER: sidekiq
+  RAILS_CACHE_STORE_URL: memcache
+  RAILS_ENV: development
+  RAILS_LOG_TO_STDOUT: true
+  RAILS_SERVE_STATIC_FILES: true
+  MARIADB_USER: development
+  MARIADB_PASSWORD: 12341234
+  MARIADB_DATABASE: development
+  MARIADB_ROOT_PASSWORD: 12341234
+
+services:
+  ##
+  # Run an instance of MySQL with a database named 'development' for running specs. See config/database.yml
+  db:
+    &db
+    image: mariadb:10.11.2
+    restart: always
+    environment:
+      <<: *common-variables
+    volumes:
+      - db:/var/lib/mysql
+      - ./config/mysql/mysqld.cnf:/etc/mysql/conf.d/custom.cnf
+    networks:
+      internal:
+
+        ##
+        # Run an instance of MySQL with a database named 'test' for running specs. See config/database.yml. Has no volume
+        # and doesn't intend on persisting data across sessions.
+  db_test:
+    <<: *db
+    environment:
+      <<: *common-variables
+    networks:
+      internal:
+    tmpfs: /var/lib/mysql
+      ##
+      # Basic image for the rails application server, see Dockerfile
+  app:
+    &app
+    build: .
+    volumes:
+      - .:/data
+      - bundled:/usr/local/bundle
+    entrypoint: /data/build/entrypoint.sh
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    networks:
+      internal:
+
+        ##
+        # Run the application in the currently set RAILS_ENV, set to development by default in the .env file.
+  server:
+    <<: *app
+    environment:
+      <<: *common-variables
+      RAILS_ENV: development
+      MARIADB_ROOT_HOST: db
+    depends_on:
+      - db
+
+  test:
+    <<: *app
+    environment:
+      <<: *common-variables
+      RAILS_ENV: test
+      MARIADB_ROOT_HOST: db_test
+    depends_on:
+      - db_test
+
+  ##
+  # Load balancer, although not strictly necessary.. would allow the app to work with regular port 80
+  lb:
+    image: dockercloud/haproxy:1.5.3
+    links:
+      - web
+    environment:
+      - DOCKER_TLS_VERIFY
+      - DOCKER_HOST
+      - DOCKER_CERT_PATH
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # You must uncomment this line if and only if you are running docker-machine
+      # - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+    networks:
+      internal:
+      external:
