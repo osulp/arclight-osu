@@ -4,6 +4,7 @@ volumes:
   app:
   db:
   bundled:
+  solr:
 
 
 networks:
@@ -41,7 +42,7 @@ services:
         ##
         # Run an instance of MySQL with a database named 'test' for running specs. See config/database.yml. Has no volume
         # and doesn't intend on persisting data across sessions.
-  db_test:
+  db-test:
     <<: *db
     environment:
       <<: *common-variables
@@ -72,17 +73,51 @@ services:
       <<: *common-variables
       RAILS_ENV: development
       MARIADB_ROOT_HOST: db
+      SOLR_URL: http://solr-dev:8983/solr/development
     depends_on:
       - db
+      - solr-dev
 
   test:
     <<: *app
     environment:
       <<: *common-variables
       RAILS_ENV: test
-      MARIADB_ROOT_HOST: db_test
+      MARIADB_ROOT_HOST: db-test
+      SOLR_URL: http://solr-test:8983/solr/test
     depends_on:
-      - db_test
+      - db-test
+      - solr-test
+
+  solr:
+    &solr
+    image: solr:8.11-slim
+    expose:
+      - 8983
+    networks:
+      - internal
+    environment:
+      - OOM=crash
+      - SOLR_HEAP=2g
+  solr-dev:
+    <<: *solr
+    volumes:
+      - ./solr/conf:/opt/solr/od2_conf
+      # We have to mount the entire /var/solr dir because otherwise permissions
+      # get messed up by docker
+      - solr:/var/solr
+    command:
+      - solr-precreate
+      - development
+      - /opt/solr/od2_conf
+  solr-test:
+    <<: *solr
+    volumes:
+      - ./config/solr/conf:/opt/solr/od2_conf
+    command:
+      - solr-precreate
+      - test
+      - /opt/solr/od2_conf
 
   ##
   # Load balancer, although not strictly necessary.. would allow the app to work with regular port 80

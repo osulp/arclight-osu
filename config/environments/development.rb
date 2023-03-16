@@ -77,4 +77,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.hosts << /.*/
+
+  # Whitelist docker containers for webconsole during development
+  config.web_console.whitelisted_ips = ['172.0.0.0/8', '192.0.0.0/8']
 end

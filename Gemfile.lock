@@ -83,6 +83,8 @@ GEM
       ostruct (>= 0.3.2)
       rails (>= 5.1, < 7.1)
       view_component (~> 2.66)
+    blacklight-locale_picker (1.0.0)
+      rails (>= 5.2.3, < 7.1)
     blacklight_range_limit (8.3.0)
       blacklight (>= 7.25.2, < 9)
       deprecation
@@ -356,6 +358,7 @@ PLATFORMS
 
 DEPENDENCIES
   arclight
+  blacklight-locale_picker
   blacklight_range_limit
   bootsnap (>= 1.4.4)
   bootstrap (~> 4.0)

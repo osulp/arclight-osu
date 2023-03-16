@@ -8,6 +8,9 @@
 //= require twitter/typeahead
 //= require bootstrap
 //= require blacklight/blacklight
+// Required by Arclight
+//= require arclight/arclight
+//= require stickyfill
 
 
 
