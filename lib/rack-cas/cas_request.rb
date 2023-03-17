@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'nokogiri'
 
 class CASRequest
@@ -9,10 +11,10 @@ class CASRequest
 
   def ticket
     @ticket ||= if single_sign_out?
-      sso_ticket
-    elsif ticket_validation?
-      ticket_param
-    end
+                  sso_ticket
+                elsif ticket_validation?
+                  ticket_param
+                end
   end
 
   def service_url
@@ -33,9 +35,9 @@ class CASRequest
     # that services accept tickets up to 256 characters long.
     # http://www.jasig.org/cas/protocol
     # OVERRIDE: our ticket is >350 charaters long
-    if @request.get? && ticket_param
-      !!(ticket_param.to_s =~ /\AST\-[^\s]{1,512}\Z/)
-    end
+    return unless @request.get? && ticket_param
+
+    !!(ticket_param.to_s =~ /\AST-[^\s]{1,512}\Z/)
   end
 
   def path_matches?(strings_or_regexps)
@@ -57,6 +59,6 @@ class CASRequest
   def sso_ticket
     xml = Nokogiri::XML(@request.params['logoutRequest'])
     node = xml.root.children.find { |c| c.name =~ /SessionIndex/i }
-    node.text unless node.nil?
+    node&.text
   end
 end

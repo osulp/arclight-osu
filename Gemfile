@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -5,9 +7,9 @@ ruby '3.2.1'
 
 # Application gems
 gem 'arclight'
+gem 'blacklight_range_limit'
 gem 'devise'
 gem 'devise_cas_authenticatable'
-gem 'blacklight_range_limit'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.2'
@@ -36,7 +38,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
@@ -47,8 +49,8 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
@@ -58,28 +60,28 @@ group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
   gem 'coveralls', '~> 0.8'
   gem 'database_cleaner', '~> 1.8.5'
   gem 'equivalent-xml'
   gem 'poltergeist'
   gem 'rails-controller-testing'
   gem 'rspec'
-  gem 'rspec-mocks'
   gem 'rspec_junit_formatter'
+  gem 'rspec-mocks'
   gem 'shoulda-matchers', '~> 4'
   gem 'simplecov', '>= 0.9'
+  gem 'webdrivers'
   gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
 end
-gem 'rsolr', '>= 1.0', '< 3'
-gem 'bootstrap', '~> 4.0'
-gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
-gem 'jquery-rails'
 gem 'blacklight-locale_picker'
+gem 'bootstrap', '~> 4.0'
+gem 'jquery-rails'
+gem 'rsolr', '>= 1.0', '< 3'
+gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
