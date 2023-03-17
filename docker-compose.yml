@@ -5,6 +5,7 @@ volumes:
   db:
   bundled:
   solr:
+  redis:
 
 
 networks:
@@ -15,6 +16,7 @@ networks:
 x-common-variables:
   &common-variables
   ACTIVE_JOB_QUEUE_ADAPTER: sidekiq
+  CAS_URL: https://login.oregonstate.edu/cas
   RAILS_CACHE_STORE_URL: memcache
   RAILS_ENV: development
   RAILS_LOG_TO_STDOUT: true
@@ -23,6 +25,7 @@ x-common-variables:
   MARIADB_PASSWORD: 12341234
   MARIADB_DATABASE: development
   MARIADB_ROOT_PASSWORD: 12341234
+  REDIS_URL: redis://redis:6379/1
 
 services:
   ##
@@ -77,6 +80,7 @@ services:
     depends_on:
       - db
       - solr-dev
+      - redis
 
   test:
     <<: *app
@@ -88,6 +92,7 @@ services:
     depends_on:
       - db-test
       - solr-test
+      - redis
 
   solr:
     &solr
@@ -136,3 +141,12 @@ services:
     networks:
       internal:
       external:
+
+        ##
+        # Redis for the background job queues
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+    networks:
+      internal:
