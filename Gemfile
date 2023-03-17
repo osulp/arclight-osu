@@ -37,6 +37,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 group :development do
@@ -56,6 +59,17 @@ group :test do
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+  gem 'coveralls', '~> 0.8'
+  gem 'database_cleaner', '~> 1.8.5'
+  gem 'equivalent-xml'
+  gem 'poltergeist'
+  gem 'rails-controller-testing'
+  gem 'rspec'
+  gem 'rspec-mocks'
+  gem 'rspec_junit_formatter'
+  gem 'shoulda-matchers', '~> 4'
+  gem 'simplecov', '>= 0.9'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -64,11 +78,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
 end
-gem 'rsolr', '>= 1.0', '< 3'
-gem 'bootstrap', '~> 4.0'
-gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
-gem 'jquery-rails'
-
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'bootstrap', '~> 4.0'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
