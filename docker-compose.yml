@@ -118,7 +118,7 @@ services:
   solr-test:
     <<: *solr
     volumes:
-      - ./config/solr/conf:/opt/solr/od2_conf
+      - ./solr/conf:/opt/solr/od2_conf
     command:
       - solr-precreate
       - test
