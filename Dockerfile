@@ -11,7 +11,7 @@ FROM bundler as dependencies
 # The alpine way
 RUN apk --no-cache update && apk --no-cache upgrade && \
   apk add --no-cache alpine-sdk automake zip unzip vim yarn \
-  libtool libgomp libc6-compat  \
+  libtool libgomp libc6-compat openssl \
   curl build-base tzdata libtool nodejs bash bash-completion less\
   libffi libffi-dev tini tmux libxslt-dev libxml2-dev mariadb-client mariadb-dev
 
@@ -58,5 +58,5 @@ ENV DEPLOYED_VERSION=${DEPLOYED_VERSION}
 RUN if [ "${RAILS_ENV}" = "production" ]; then \
   echo "Precompiling assets with $RAILS_ENV environment"; \
   rm -rf /data/.cache; \
-  RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=temporary bundle exec rails assets:precompile; \
+  NODE_OPTIONS="--openssl-legacy-provider" RAILS_ENV=$RAILS_ENV SECRET_KEY_BASE=temporary bundle exec rails assets:precompile; \
   fi
