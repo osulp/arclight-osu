@@ -126,24 +126,24 @@ services:
 
   ##
   # Load balancer, although not strictly necessary.. would allow the app to work with regular port 80
-  lb:
-    image: dockercloud/haproxy:1.5.3
-    links:
-      - web
-    environment:
-      - DOCKER_TLS_VERIFY
-      - DOCKER_HOST
-      - DOCKER_CERT_PATH
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      # You must uncomment this line if and only if you are running docker-machine
-      # - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
-    networks:
-      internal:
-      external:
+  # lb:
+  #   image: dockercloud/haproxy:1.5.3
+  #   links:
+  #     - web
+  #   environment:
+  #     - DOCKER_TLS_VERIFY
+  #     - DOCKER_HOST
+  #     - DOCKER_CERT_PATH
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     # You must uncomment this line if and only if you are running docker-machine
+  #     # - $DOCKER_CERT_PATH:$DOCKER_CERT_PATH
+  #   networks:
+  #     internal:
+  #     external:
 
-        ##
-        # Redis for the background job queues
+  ##
+  # Redis for the background job queues
   redis:
     image: redis:alpine
     volumes:

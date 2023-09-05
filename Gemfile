@@ -6,13 +6,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.2.1'
 
 # Application gems
-gem 'arclight'
+gem 'arclight', '~> 1.0.0'
 gem 'blacklight_range_limit'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.7', '>= 6.1.7.2'
+gem 'rails', '~> 7.0'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
@@ -58,7 +58,7 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
-  gem 'selenium-webdriver', '>= 4.0.0.rc1'
+  gem 'selenium-webdriver', '>= 4.0.0'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'coveralls', '~> 0.8'
   gem 'database_cleaner', '~> 1.8.5'
@@ -70,7 +70,6 @@ group :test do
   gem 'rspec-mocks'
   gem 'shoulda-matchers', '~> 4'
   gem 'simplecov', '>= 0.9'
-  gem 'webdrivers'
   gem 'webmock'
 end
 
