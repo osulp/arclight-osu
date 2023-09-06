@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'solr_wrapper', '>= 0.3'
 end
 
 group :development do
@@ -76,9 +77,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
-end
 gem 'blacklight-locale_picker'
 gem 'bootstrap', '~> 4.0'
 gem 'jquery-rails'
