@@ -48,6 +48,9 @@ FROM gems as code
 # Add the rest of the code
 COPY --chown=app:app . /data
 
+# Install node modules
+RUN yarn install
+
 ARG RAILS_ENV=${RAILS_ENV}
 ENV RAILS_ENV=${RAILS_ENV}
 
