@@ -18,7 +18,7 @@ gem 'mysql2', '~> 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
-gem "sassc-rails", '~> 2.1'
+gem 'sassc-rails', '~> 2.1'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -78,7 +78,7 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'blacklight-locale_picker'
-gem "bootstrap", '~> 5.1'
+gem 'bootstrap', '~> 5.1'
 gem 'jquery-rails'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
