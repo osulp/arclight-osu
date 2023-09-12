@@ -212,10 +212,10 @@ workflows:
           requires:
             - lint
             - test
-          # filters:
-          #   branches:
-          #     only:
-          #       - main
-          #       - /infra\/.*/
+          filters:
+            branches:
+              only:
+                - main
+                - /infra\/.*/
           repo: arclight_osu
           environment: production
