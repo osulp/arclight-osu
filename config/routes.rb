@@ -3,18 +3,22 @@
 Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
   mount Arclight::Engine => '/'
+  mount Blacklight::Hierarchy::Engine => '/'
 
   root to: 'arclight/repositories#index'
   concern :searchable, Blacklight::Routes::Searchable.new
 
+  # concern :hierarchical, Blacklight::Routes::Hierarchy.new
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
   end
   devise_for :users
 
   concern :exportable, Blacklight::Routes::Exportable.new
+  concern :hierarchy, Arclight::Routes::Hierarchy.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
+  concerns :hierarchy
     concerns :exportable
   end
 

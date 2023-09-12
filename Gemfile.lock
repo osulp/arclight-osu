@@ -88,6 +88,10 @@ GEM
       ostruct (>= 0.3.2)
       rails (>= 6.1, < 8)
       view_component (>= 2.66, < 3.1)
+    blacklight-hierarchy (6.1.2)
+      blacklight (>= 7.18, < 9)
+      deprecation
+      rails (>= 6.1, < 7.1)
     blacklight-locale_picker (1.0.0)
       rails (>= 5.2.3, < 7.1)
     bootsnap (1.16.0)
@@ -471,6 +475,7 @@ PLATFORMS
 
 DEPENDENCIES
   arclight
+  blacklight-hierarchy
   blacklight-locale_picker
   bootsnap
   bootstrap (~> 5.1)
