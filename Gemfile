@@ -27,7 +27,7 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 4.0"
+gem 'redis', '~> 4.0'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -88,11 +88,11 @@ group :test do
 end
 gem 'arclight'
 
+gem 'blacklight-hierarchy'
 gem 'blacklight-locale_picker'
 gem 'bootstrap', '~> 5.1'
 gem 'devise'
-gem 'devise-guests', '~> 0.8'
 gem 'devise_cas_authenticatable'
+gem 'devise-guests', '~> 0.8'
 gem 'jquery-rails'
 gem 'rsolr', '>= 1.0', '< 3'
-gem 'blacklight-hierarchy'

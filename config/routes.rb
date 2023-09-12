@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   concern :hierarchy, Arclight::Routes::Hierarchy.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
-  concerns :hierarchy
+    concerns :hierarchy
     concerns :exportable
   end
 

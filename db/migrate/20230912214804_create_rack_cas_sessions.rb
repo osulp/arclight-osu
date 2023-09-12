@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# Create Sessions for Rack CAS
 class CreateRackCasSessions < ActiveRecord::Migration[7.0]
   def self.up
     create_table :sessions do |t|
-      t.string :session_id, :null => false
+      t.string :session_id, null: false
       t.string :cas_ticket
       t.text :data
       t.timestamps

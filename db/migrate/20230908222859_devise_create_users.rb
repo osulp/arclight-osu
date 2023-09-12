@@ -10,7 +10,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
 
       ## Cas Authenticatable
       t.string :username, null: false, default: ''
-      t.string "display_name"
+      t.string 'display_name'
 
       ## Recoverable
       t.string   :reset_password_token
