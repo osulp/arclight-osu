@@ -4,7 +4,7 @@ orbs:
 jobs:
   checkout_code:
     docker:
-      - image: cimg/ruby:3.2.1
+      - image: cimg/ruby:3.2.2
     working_directory: ~/app
     steps:
       - restore_cache:
@@ -16,7 +16,7 @@ jobs:
           name: Save code cache
           key: v1-source-{{ .Branch }}-{{ .Revision }}
           paths:
-            - '.git'
+            - ".git"
       - persist_to_workspace:
           root: ~/
           paths:
@@ -24,7 +24,7 @@ jobs:
             - app/**/*
   bundle:
     docker:
-      - image: cimg/ruby:3.2.1-browsers
+      - image: cimg/ruby:3.2.2-browsers
     environment:
       BUNDLE_PATH: vendor/bundle
     working_directory: ~/app
@@ -53,7 +53,7 @@ jobs:
             - app/**/*
   lint:
     docker:
-      - image: cimg/ruby:3.2.1-browsers
+      - image: cimg/ruby:3.2.2-browsers
     environment:
       BUNDLE_PATH: vendor/bundle
     working_directory: ~/app
@@ -66,16 +66,16 @@ jobs:
       - run: bundle exec rubocop
   test:
     docker:
-      - image: cimg/ruby:3.2.1-browsers
+      - image: cimg/ruby:3.2.2-browsers
         environment:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           MARIADB_DATABASE: test
           MARIADB_PASSWORD: test
           MARIADB_USER: test
-          MARIADB_ROOT_HOST: '127.0.0.1'
+          MARIADB_ROOT_HOST: "127.0.0.1"
           REDIS_HOST: localhost
-          REDIS_PORT: '6379'
+          REDIS_PORT: "6379"
           SECRET_KEY_BASE: bobross1234bobross1234bobross1234bobross1234bobross1234
           SOLR_URL: http://localhost:8985/solr/test
       - image: cimg/mariadb:10.11.2
@@ -138,12 +138,12 @@ jobs:
     parameters:
       repo:
         type: string
-        default: ''
+        default: ""
       environment:
         type: string
-        default: 'production'
+        default: "production"
     executor:
-      name: 'docker/docker'
+      name: "docker/docker"
     environment:
       DOCKER_LOGIN: admin
       DOCKER_PASSWORD: admin
@@ -182,15 +182,15 @@ jobs:
       - docker/build:
           registry: registry.library.oregonstate.edu
           image: arclight_osu_cache
-          tag: 'latest'
+          tag: "latest"
           extra_build_args: --target gems
           cache_from: registry.library.oregonstate.edu/arclight_osu_cache:latest
-          step-name: 'Rebuild cache image'
+          step-name: "Rebuild cache image"
       - docker/push:
           registry: registry.library.oregonstate.edu
           image: arclight_osu_cache
           tag: latest
-          step-name: 'Push cache image'
+          step-name: "Push cache image"
 workflows:
   ci:
     jobs:

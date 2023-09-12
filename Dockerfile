@@ -1,4 +1,4 @@
-FROM ruby:3.2.1-alpine3.17 as bundler
+FROM ruby:3.2.2-alpine3.17 as bundler
 
 # Necessary for bundler to operate properly
 ENV LANG C.UTF-8
@@ -47,6 +47,9 @@ FROM gems as code
 
 # Add the rest of the code
 COPY --chown=app:app . /data
+
+# Install node modules
+RUN yarn install
 
 ARG RAILS_ENV=${RAILS_ENV}
 ENV RAILS_ENV=${RAILS_ENV}

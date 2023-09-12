@@ -14,7 +14,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '13fc31510d0cb5d7a3154fde516ef6ddfd618e63e4cc99d4f5707669d7ec19aff1b405927708bf7ef820ec232f91103b3a2f00635eb01479d80a619523d1cea7'
+  # config.secret_key = 'c618ac64644582a5513665aa13aa5a1a09bc67a57dbcfc0e0789706a665bd2b685a1ef15ace8d809b9c19b5dd0a0342df05dd3732b45fa4934936dce828c766f'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -126,7 +126,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'a8f7cc11382044e7aae0739b4fbb192d49ca1b01e2a1d69b4a646800547e5e388b8f85656c7b984ea8ec51ea7e9eceb218d55f0fc8d68e110af1345db585a25e'
+  # config.pepper = 'd13132ef32a1f67377d0c4a96a2d1408ab7495649604a89636a1e357cad77b11704723831a862b25a97450ba8960cc7e87d3aeb4b74dd13db7bdd17c052478f9'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -311,8 +311,7 @@ Devise.setup do |config|
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
 
-  # ==> Configuration for devise_cas_authenticatable
-
+  # ==> Configuration for :cas_authenticatable
   # The CAS specification allows for the passing of a follow URL to be displayed when
   # a user logs out on the CAS server. RubyCAS-Server also supports redirecting to a
   # URL via the destination param. Set either of these urls and specify either nil,

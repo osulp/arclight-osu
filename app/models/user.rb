@@ -7,6 +7,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :cas_authenticatable
 
+  # Configuration added by Blacklight; Blacklight::User uses a method key on your
+  # user class to get a user-displayable login/identifier for
+  # the account.
+  self.string_display_key ||= :email
+
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
       case name.to_sym

@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -33,6 +34,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+/eads
 /public/packs
 /public/packs-test
 /node_modules
