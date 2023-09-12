@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = 'noreply@oregonstate.edu'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -310,4 +310,28 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+
+  # ==> Configuration for :cas_authenticatable
+  # The CAS specification allows for the passing of a follow URL to be displayed when
+  # a user logs out on the CAS server. RubyCAS-Server also supports redirecting to a
+  # URL via the destination param. Set either of these urls and specify either nil,
+  # 'destination' or 'follow' as the logout_url_param. If the urls are blank but
+  # logout_url_param is set, a default will be detected for the service.
+  # config.cas_destination_url = 'https://cas.myorganization.com'
+  # config.cas_follow_url = 'https://cas.myorganization.com'
+  # config.cas_logout_url_param = nil
+
+  # You can specify the name of the destination argument with the following option.
+  # e.g. the following option will change it from 'destination' to 'url'
+  # config.cas_destination_logout_param_name = 'url'
+
+  # By default, devise_cas_authenticatable will create users.  If you would rather
+  # require user records to already exist locally before they can authenticate via
+  # CAS, uncomment the following line.
+  # config.cas_create_user = false
+
+  # If you don't want to use the username returned from your CAS server as the unique
+  # identifier, but some other field passed in cas_extra_attributes, you can specify
+  # the field name here.
+  # config.cas_user_identifier = nil
 end

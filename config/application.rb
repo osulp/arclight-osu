@@ -3,6 +3,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'rack-cas/session_store/active_record'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,5 +21,9 @@ module ArclightOsu
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    config.rack_cas.server_url = ENV.fetch('CAS_URL', 'https://login.oregonstate.edu/cas')
+    config.rack_cas.service = '/users/service' # If your user model isn't called User, change this
+    config.rack_cas.session_store = RackCAS::ActiveRecordStore
   end
 end
