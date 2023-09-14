@@ -36,6 +36,10 @@ services:
     restart: always
     environment:
       <<: *common-variables
+      MARIADB_USER: development
+      MARIADB_PASSWORD: 12341234
+      MARIADB_DATABASE: development
+      MARIADB_ROOT_PASSWORD: 12341234
     volumes:
       - db:/var/lib/mysql
       - ./config/mysql/mysqld.cnf:/etc/mysql/conf.d/custom.cnf
