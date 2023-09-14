@@ -13,7 +13,7 @@ RUN apk --no-cache update && apk --no-cache upgrade && \
   apk add --no-cache alpine-sdk automake zip unzip vim yarn \
   libtool libgomp libc6-compat openssl \
   curl build-base tzdata libtool nodejs bash bash-completion less\
-  libffi libffi-dev tini tmux libxslt-dev libxml2-dev mariadb-client mariadb-dev
+  libffi libffi-dev tini tmux libxslt-dev libxml2-dev mysql mysql-client mysql-dev
 
 # Set the timezone to America/Los_Angeles (Pacific) then get rid of tzdata
 RUN cp -f /usr/share/zoneinfo/America/Los_Angeles /etc/localtime && \

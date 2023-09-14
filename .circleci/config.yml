@@ -70,20 +70,19 @@ jobs:
         environment:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
-          MARIADB_DATABASE: test
-          MARIADB_PASSWORD: test
-          MARIADB_USER: test
-          MARIADB_ROOT_HOST: "127.0.0.1"
+          DB_DATABASE: test
+          DB_PASSWORD: test
+          DB_USER: test
+          DB_HOST: "127.0.0.1"
           REDIS_HOST: localhost
           REDIS_PORT: "6379"
           SECRET_KEY_BASE: bobross1234bobross1234bobross1234bobross1234bobross1234
           SOLR_URL: http://localhost:8985/solr/test
       - image: cimg/mariadb:10.11.2
         environment:
-          MARIADB_ROOT_PASSWORD: root
-          MARIADB_DATABASE: test
-          MARIADB_USER: test
-          MARIADB_PASSWORD: test
+          DB_DATABASE: test
+          DB_USER: test
+          DB_PASSWORD: test
       - image: cimg/redis:6.2
       - image: solr:8.11-slim
         command: bin/solr -cloud -noprompt -f -p 8985

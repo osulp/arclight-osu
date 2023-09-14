@@ -21,10 +21,10 @@ x-common-variables:
   RAILS_ENV: development
   RAILS_LOG_TO_STDOUT: true
   RAILS_SERVE_STATIC_FILES: true
-  MARIADB_USER: development
-  MARIADB_PASSWORD: 12341234
-  MARIADB_DATABASE: development
-  MARIADB_ROOT_PASSWORD: 12341234
+  DB_USER: development
+  DB_PASSWORD: 12341234
+  DB_DATABASE: development
+  DB_ROOT_PASSWORD: 12341234
   REDIS_URL: redis://redis:6379/1
 
 services:
@@ -75,7 +75,7 @@ services:
     environment:
       <<: *common-variables
       RAILS_ENV: development
-      MARIADB_ROOT_HOST: db
+      DB_HOST: db
       SOLR_URL: http://solr-dev:8983/solr/development
     depends_on:
       - db
@@ -87,7 +87,7 @@ services:
     environment:
       <<: *common-variables
       RAILS_ENV: test
-      MARIADB_ROOT_HOST: db-test
+      DB_HOST: db-test
       SOLR_URL: http://solr-test:8983/solr/test
     depends_on:
       - db-test
