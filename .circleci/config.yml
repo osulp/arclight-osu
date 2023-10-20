@@ -74,6 +74,7 @@ jobs:
           DB_PASSWORD: test
           DB_USER: test
           DB_HOST: localhost
+          DB_PORT: 3306
           REDIS_HOST: localhost
           REDIS_PORT: "6379"
           SECRET_KEY_BASE: bobross1234bobross1234bobross1234bobross1234bobross1234

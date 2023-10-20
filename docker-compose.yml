@@ -53,6 +53,10 @@ services:
     <<: *db
     environment:
       <<: *common-variables
+      MYSQL_USER: test
+      MYSQL_PASSWORD: 12341234
+      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: 12341234
     networks:
       internal:
     tmpfs: /var/lib/mysql
@@ -98,6 +102,8 @@ services:
       ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
       RAILS_ENV: test
       DB_HOST: db-test
+      DB_USER: test
+      DB_DATABASE: test
       SOLR_URL: http://solr-test:8983/solr/test
     depends_on:
       - db-test
