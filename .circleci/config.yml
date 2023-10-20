@@ -73,12 +73,12 @@ jobs:
           DB_DATABASE: test
           DB_PASSWORD: test
           DB_USER: test
-          DB_HOST: "127.0.0.1"
+          DB_HOST: localhost
           REDIS_HOST: localhost
           REDIS_PORT: "6379"
           SECRET_KEY_BASE: bobross1234bobross1234bobross1234bobross1234bobross1234
           SOLR_URL: http://localhost:8985/solr/test
-      - image: cimg/mariadb:10.11.2
+      - image: cimg/mysql:8.0
         environment:
           DB_DATABASE: test
           DB_USER: test
