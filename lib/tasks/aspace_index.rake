@@ -19,7 +19,7 @@ SKIPTO = 3
 namespace :arclight_osu do
   desc 'ingest works using csv'
   task aspace_index: :environment do
-    @base_url = URI(ENV.fetch('ARCHIVESSPACE_URL', 'https://sandbox.archivesspace.org/staff/api/'))
+    @base_url = URI(ENV.fetch('ARCHIVESSPACE_API_URL', 'https://sandbox.archivesspace.org/staff/api/'))
     process
   end
 end
@@ -37,10 +37,9 @@ def process
     ids = get_repository_resource_ids(repo_id)
     ids.each do |id|
       xml = get_resource_ead_xml(repo_id, id)
-      ead_xml = Nokogiri::XML(xml)
 
       # EAD must have an eadid to index correctly
-      next unless validate_ead_id_exists(ead_xml)
+      next unless validate_ead_id_exists(Nokogiri::XML(xml))
 
       index_ead(xml)
     end
@@ -96,7 +95,7 @@ def validate_ead_id_exists(xml)
   eadid = xml.at_css('ead eadheader eadid')
   return true if eadid && eadid.text.length.positive?
 
-  title = ead_xml.at_css('ead archdesc did unittitle').text
+  title = xml.at_css('ead archdesc did unittitle').text
   puts "EADID does not exist for #{title}"
   false
 end

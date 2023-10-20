@@ -99,7 +99,7 @@ services:
       <<: *common-variables
       ARCHIVESSPACE_API_USER: test
       ARCHIVESSPACE_API_PASS: test
-      ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
+      ARCHIVESSPACE_API_URL: http://localhost:3001
       RAILS_ENV: test
       DB_HOST: db-test
       DB_USER: test
@@ -125,22 +125,22 @@ services:
   solr-dev:
     <<: *solr
     volumes:
-      - ./solr/conf:/opt/solr/od2_conf
+      - ./solr/conf:/opt/solr/arclight_conf
       # We have to mount the entire /var/solr dir because otherwise permissions
       # get messed up by docker
       - solr:/var/solr
     command:
       - solr-precreate
       - development
-      - /opt/solr/od2_conf
+      - /opt/solr/arclight_conf
   solr-test:
     <<: *solr
     volumes:
-      - ./solr/conf:/opt/solr/od2_conf
+      - ./solr/conf:/opt/solr/arclight_conf
     command:
       - solr-precreate
       - test
-      - /opt/solr/od2_conf
+      - /opt/solr/arclight_conf
 
   ##
   # Load balancer, although not strictly necessary.. would allow the app to work with regular port 80

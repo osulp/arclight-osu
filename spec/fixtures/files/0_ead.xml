@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ead xmlns="urn:isbn:1-931666-22-9" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd">
+  <eadheader countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b"
+    repositoryencoding="iso15511">
+    <eadid countrycode="US">0</eadid>
+    <filedesc>
+      <titlestmt>
+        <titleproper>aaaaaaaaaaaaaa magarac <num>123</num>
+        </titleproper>
+      </titlestmt>
+      <publicationstmt>
+        <publisher>Special Collections and Gallery</publisher>
+      </publicationstmt>
+    </filedesc>
+    <profiledesc>
+      <creation>This finding aid was produced using ArchivesSpace on <date>2023-10-18 15:30:26 -0400</date>
+        .
+            </creation>
+      <langusage>Description is written in: <language langcode="abk" scriptcode="Armi">Abkhazian,
+        Imperial Aramaic script</language>. </langusage>
+    </profiledesc>
+  </eadheader>
+  <archdesc level="collection">
+    <did>
+      <repository>
+        <corpname>Special Collections and Gallery</corpname>
+      </repository>
+      <unittitle>aaaaaaaaaaaaaa magarac</unittitle>
+      <unitid>123</unitid>
+      <unitid type="aspace_uri">/repositories/1/resources/0</unitid>
+      <physdesc altrender="whole">
+        <extent altrender="materialtype spaceoccupied">1 Terabytes</extent>
+                <extent
+          altrender="carrier">žaba</extent>
+                <physfacet>konj</physfacet>
+                <dimensions>krava</dimensions>
+      </physdesc>
+      <unitdate datechar="creation" normal="2023-10-03/2023-10-09" type="bulk">2023-10-03-2023-10-09</unitdate>
+      <langmaterial>
+        <language langcode="ace">Achinese</language> . </langmaterial>
+    </did>
+    <custodhist id="aspace_žirafa">
+      <head>Custodial History</head>
+      <p>bcn cv bn</p>
+    </custodhist>
+    <dsc>
+      <c id="aspace_08efaf28113c5289910a6fb0cd5a8d94" level="item">
+        <did>
+          <unittitle>drsfthsdfthsrfh</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1156</unitid>
+        </did>
+      </c>
+      <c id="aspace_8007313e734525e17f9132d38cfaf71e" level="file">
+        <did>
+          <unittitle>Correspondence, 1901-1905</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1133</unitid>
+          <physdesc altrender="whole">
+            <extent altrender="materialtype spaceoccupied">3 Sheets</extent>
+          </physdesc>
+          <unitdate calendar="gregorian" certainty="inferred" datechar="creation" era="ce"
+            normal="1901/1905" type="bulk">1901-1905</unitdate>
+          <langmaterial>
+            <language langcode="eng">English</language>. </langmaterial>
+        </did>
+      </c>
+      <c id="aspace_4aed0adb96ae0ac99938ad655eaf8084" level="file">
+        <did>
+          <unittitle>Correspondance, 1908-1909.</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1134</unitid>
+          <unitdate calendar="gregorian" certainty="inferred" datechar="creation" era="ce"
+            normal="1908/1909" type="bulk">circa 1908-1909</unitdate>
+          <langmaterial>
+            <language langcode="eng" scriptcode="Latn">English</language>. </langmaterial>
+        </did>
+      </c>
+      <c id="aspace_469c82ca61c384bfc6e17cc46a75fb6c" level="file">
+        <did>
+          <unittitle>News Clippings about Alvarado Hotel</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1135</unitid>
+          <unitdate calendar="gregorian" certainty="approximate" datechar="creation" era="ce"
+            normal="1940/1953" type="bulk">circa 1940-1953</unitdate>
+          <langmaterial>
+            <language langcode="eng" scriptcode="Latn">English</language>. </langmaterial>
+        </did>
+      </c>
+      <c id="aspace_0e58bdd577912ad3e30b146f82c852a2" level="file">
+        <did>
+          <unittitle>Codebook</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1136</unitid>
+          <langmaterial>
+            <language langcode="eng" scriptcode="Latn">English</language>. </langmaterial>
+        </did>
+      </c>
+      <c id="aspace_bd1c3617b41f215fec65dc4665dfc093" level="file">
+        <did>
+          <unittitle>News Clippings about Belt, Harold.</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1137</unitid>
+          <unitdate calendar="gregorian" certainty="approximate" datechar="creation" era="ce"
+            normal="1932/1947" type="bulk">circa 1932-1946</unitdate>
+          <langmaterial>
+            <language langcode="eng" scriptcode="Latn">English</language>. </langmaterial>
+        </did>
+      </c>
+      <c id="aspace_7a092e5d4704516e55a5945539dc923f" level="file">
+        <did>
+          <unittitle>Photographs (undated) from Fred Harvey Company's Railroad Hotels</unittitle>
+          <unitid type="aspace_uri">/repositories/2/archival_objects/1138</unitid>
+        </did>
+      </c>
+    </dsc>
+  </archdesc>
+</ead>
