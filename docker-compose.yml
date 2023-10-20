@@ -78,8 +78,8 @@ services:
     <<: *app
     environment:
       <<: *common-variables
-      ARCHIVESSPACE_API_USER: dev
-      ARCHIVESSPACE_API_PASS: dev
+      ARCHIVESSPACE_API_USER: admin
+      ARCHIVESSPACE_API_PASS: admin
       ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
       RAILS_ENV: development
       DB_HOST: db

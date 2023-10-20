@@ -19,7 +19,6 @@ SKIPTO = 3
 namespace :arclight_osu do
   desc 'ingest works using csv'
   task aspace_index: :environment do
-
     @base_url = URI(ENV.fetch('ARCHIVESSPACE_URL', 'https://sandbox.archivesspace.org/staff/api/'))
     process
   end
@@ -28,10 +27,10 @@ end
 def process
   # Get all repositories
   # For each repository get all resources
-    # For each resource
-      # Get resource id
-      # Get EAD xml description by resource id & repository id
-      # Index EAD into Solr
+  #   For each resource
+  #     Get resource id
+  #     Get EAD xml description by resource id & repository id
+  #     Index EAD into Solr
 
   repositories = get_repositories
   repositories.each do |repo|
@@ -63,10 +62,11 @@ end
 # Fetch and store the session token for ArchivesSpace API
 def get_session_token
   return @session_token if @session_token
+
   user = ENV.fetch('ARCHIVESSPACE_API_USER', 'admin')
   password = ENV.fetch('ARCHIVESSPACE_API_PASS', 'admin')
   path = "users/#{user}/login"
-  params = { password: password }
+  params = { password: }
 
   res = Net::HTTP.post_form(@base_url + path, params)
   json = JSON.parse(res.body)
@@ -106,7 +106,7 @@ end
 # TODO: Consider adding a mock eadid to ensure resource is index?
 def validate_ead_id_exists(xml)
   eadid = xml.at_css('ead eadheader eadid')
-  eadid && eadid.text.length > 0
+  eadid && eadid.text.length.positive?
 end
 
 def create_logger
