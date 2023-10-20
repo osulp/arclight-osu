@@ -32,35 +32,23 @@ def process
   #     Get EAD xml description by resource id & repository id
   #     Index EAD into Solr
 
-  repositories = get_repositories
   repositories.each do |repo|
     repo_id = repo['position']
     ids = get_repository_resource_ids(repo_id)
     ids.each do |id|
       xml = get_resource_ead_xml(repo_id, id)
       ead_xml = Nokogiri::XML(xml)
-      unless validate_ead_id_exists(ead_xml)
-        title = ead_xml.at_css('ead archdesc did unittitle').text
-        puts "EADID does not exist for #{title}"
-        next
-      end
 
-      begin
-        tmp = Tempfile.new(["#{Time.now.to_i}-", '.xml'], encoding: 'ascii-8bit')
-        tmp.write xml
-        ENV['FILE'] = tmp.path
-        tmp.close
-        Rake::Task['arclight:index'].invoke
-        Rake::Task['arclight:index'].reenable
-      ensure
-        tmp.delete
-      end
+      # EAD must have an eadid to index correctly
+      next unless validate_ead_id_exists(ead_xml)
+
+      index_ead(xml)
     end
   end
 end
 
 # Fetch and store the session token for ArchivesSpace API
-def get_session_token
+def session_token
   return @session_token if @session_token
 
   user = ENV.fetch('ARCHIVESSPACE_API_USER', 'admin')
@@ -75,9 +63,9 @@ def get_session_token
 end
 
 # Get all repositories
-def get_repositories
+def repositories
   path = 'repositories'
-  headers = { 'X-ArchivesSpace-Session': get_session_token }
+  headers = { 'X-ArchivesSpace-Session': session_token }
 
   res = Net::HTTP.get_response(@base_url + path, headers)
   JSON.parse(res.body)
@@ -87,7 +75,7 @@ end
 # TODO: shorten response to only IDs which have changed since last run
 def get_repository_resource_ids(repo_id)
   path = "repositories/#{repo_id}/resources?all_ids=true"
-  headers = { 'X-ArchivesSpace-Session': get_session_token }
+  headers = { 'X-ArchivesSpace-Session': session_token }
 
   res = Net::HTTP.get_response(@base_url + path, headers)
   JSON.parse(res.body)
@@ -96,7 +84,7 @@ end
 # Fetch an EAD2002 xml for the resource
 def get_resource_ead_xml(repo_id, id)
   path = "repositories/#{repo_id}/resource_descriptions/#{id}.xml?include_daos=true&ead3=false"
-  headers = { 'X-ArchivesSpace-Session': get_session_token }
+  headers = { 'X-ArchivesSpace-Session': session_token }
 
   res = Net::HTTP.get_response(@base_url + path, headers)
   res.body
@@ -106,7 +94,22 @@ end
 # TODO: Consider adding a mock eadid to ensure resource is index?
 def validate_ead_id_exists(xml)
   eadid = xml.at_css('ead eadheader eadid')
-  eadid && eadid.text.length.positive?
+  return true if eadid && eadid.text.length.positive?
+
+  title = ead_xml.at_css('ead archdesc did unittitle').text
+  puts "EADID does not exist for #{title}"
+  false
+end
+
+def index_ead(xml)
+  tmp = Tempfile.new(["#{Time.now.to_i}-", '.xml'], encoding: 'ascii-8bit')
+  tmp.write xml
+  ENV['FILE'] = tmp.path
+  tmp.close
+  Rake::Task['arclight:index'].invoke
+  Rake::Task['arclight:index'].reenable
+ensure
+  tmp.delete
 end
 
 def create_logger
