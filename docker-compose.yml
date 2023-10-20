@@ -78,6 +78,9 @@ services:
     <<: *app
     environment:
       <<: *common-variables
+      ARCHIVESSPACE_API_USER: dev
+      ARCHIVESSPACE_API_PASS: dev
+      ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
       RAILS_ENV: development
       DB_HOST: db
       SOLR_URL: http://solr-dev:8983/solr/development
@@ -90,6 +93,9 @@ services:
     <<: *app
     environment:
       <<: *common-variables
+      ARCHIVESSPACE_API_USER: test
+      ARCHIVESSPACE_API_PASS: test
+      ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
       RAILS_ENV: test
       DB_HOST: db-test
       SOLR_URL: http://solr-test:8983/solr/test
