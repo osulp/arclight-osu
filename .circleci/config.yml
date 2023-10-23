@@ -68,23 +68,27 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.2-browsers
         environment:
+          ARCHIVESSPACE_API_USER: test
+          ARCHIVESSPACE_API_PASS: test
+          ARCHIVESSPACE_API_URL: http://localhost:3001
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           DB_DATABASE: test
           DB_PASSWORD: test
           DB_USER: test
-          DB_HOST: "127.0.0.1"
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
           REDIS_HOST: localhost
           REDIS_PORT: "6379"
           SECRET_KEY_BASE: bobross1234bobross1234bobross1234bobross1234bobross1234
-          SOLR_URL: http://localhost:8985/solr/test
-      - image: cimg/mariadb:10.11.2
+          SOLR_URL: http://localhost:8985/solr/arclight-test
+      - image: cimg/mysql:8.0
         environment:
-          DB_DATABASE: test
-          DB_USER: test
-          DB_PASSWORD: test
+          MYSQL_DATABASE: test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
       - image: cimg/redis:6.2
-      - image: solr:8.11-slim
+      - image: solr:8.3-slim
         command: bin/solr -cloud -noprompt -f -p 8985
     working_directory: ~/app
     steps:
@@ -105,7 +109,7 @@ jobs:
             cd ./solr/conf
             zip -1 -r solr_archlight_config.zip ./*
             curl -H "Content-type:application/octet-stream" --data-binary @solr_archlight_config.zip "http://localhost:8985/solr/admin/configs?action=UPLOAD&name=arclight"
-            curl -H 'Content-type: application/json' http://localhost:8985/api/collections/ -d '{create: {name: test, config: arclight, numShards: 1}}'
+            curl -H 'Content-type: application/json' http://localhost:8985/api/collections/ -d '{create: {name: arclight-test, config: arclight, numShards: 1}}'
       - run:
           name: Update bundler
           command: gem install bundler -v 2.1.4

@@ -32,14 +32,14 @@ services:
   # Run an instance of MySQL with a database named 'development' for running specs. See config/database.yml
   db:
     &db
-    image: mariadb:10.11.2
+    image: mysql:8.0
     restart: always
     environment:
       <<: *common-variables
-      MARIADB_USER: development
-      MARIADB_PASSWORD: 12341234
-      MARIADB_DATABASE: development
-      MARIADB_ROOT_PASSWORD: 12341234
+      MYSQL_USER: development
+      MYSQL_PASSWORD: 12341234
+      MYSQL_DATABASE: development
+      MYSQL_ROOT_PASSWORD: 12341234
     volumes:
       - db:/var/lib/mysql
       - ./config/mysql/mysqld.cnf:/etc/mysql/conf.d/custom.cnf
@@ -53,6 +53,10 @@ services:
     <<: *db
     environment:
       <<: *common-variables
+      MYSQL_USER: test
+      MYSQL_PASSWORD: 12341234
+      MYSQL_DATABASE: test
+      MYSQL_ROOT_PASSWORD: 12341234
     networks:
       internal:
     tmpfs: /var/lib/mysql
@@ -78,6 +82,9 @@ services:
     <<: *app
     environment:
       <<: *common-variables
+      ARCHIVESSPACE_API_USER: admin
+      ARCHIVESSPACE_API_PASS: admin
+      ARCHIVESSPACE_API_URL: https://sandbox.archivesspace.org/staff/api/
       RAILS_ENV: development
       DB_HOST: db
       SOLR_URL: http://solr-dev:8983/solr/development
@@ -90,8 +97,13 @@ services:
     <<: *app
     environment:
       <<: *common-variables
+      ARCHIVESSPACE_API_USER: test
+      ARCHIVESSPACE_API_PASS: test
+      ARCHIVESSPACE_API_URL: http://localhost:3001
       RAILS_ENV: test
       DB_HOST: db-test
+      DB_USER: test
+      DB_DATABASE: test
       SOLR_URL: http://solr-test:8983/solr/test
     depends_on:
       - db-test
@@ -113,22 +125,22 @@ services:
   solr-dev:
     <<: *solr
     volumes:
-      - ./solr/conf:/opt/solr/od2_conf
+      - ./solr/conf:/opt/solr/arclight_conf
       # We have to mount the entire /var/solr dir because otherwise permissions
       # get messed up by docker
       - solr:/var/solr
     command:
       - solr-precreate
       - development
-      - /opt/solr/od2_conf
+      - /opt/solr/arclight_conf
   solr-test:
     <<: *solr
     volumes:
-      - ./solr/conf:/opt/solr/od2_conf
+      - ./solr/conf:/opt/solr/arclight_conf
     command:
       - solr-precreate
       - test
-      - /opt/solr/od2_conf
+      - /opt/solr/arclight_conf
 
   ##
   # Load balancer, although not strictly necessary.. would allow the app to work with regular port 80
