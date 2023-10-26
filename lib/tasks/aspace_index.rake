@@ -1,21 +1,11 @@
 # frozen_string_literal:true
 
-# what does the csv look like?
-#  fields in the top line
-#  what about multiple values? pipe as a delimiter
-#  worktype in the first col, eg generic, image ...
-#  filenames in the second col
-#  id in the third col, omit "oregondigital:"
-#  if read_groups is included, this will override the default of public
-#  if admin_set_id is included, it will override admin_set/default
-# args: path to dir containing all files including csv, name of the csv, email
-# called like this: rake oregon_digital:csv_ingest csv=mymetadata.csv filedir=/data/allthefiles email=admin@example.org
-
-WORKTYPE = 0
-FILENAMES = 1
-ID = 2
-SKIPTO = 3
-
+# Get all repositories
+# For each repository get all resources
+#   For each resource
+#     Get resource id
+#     Get EAD xml description by resource id & repository id
+#     Index EAD into Solr
 namespace :arclight_osu do
   desc 'ingest works using csv'
   task aspace_index: :environment do
@@ -25,18 +15,11 @@ namespace :arclight_osu do
 end
 
 def process
-  # Get all repositories
-  # For each repository get all resources
-  #   For each resource
-  #     Get resource id
-  #     Get EAD xml description by resource id & repository id
-  #     Index EAD into Solr
-
   repositories.each do |repo|
-    repo_id = repo['position']
-    ids = get_repository_resource_ids(repo_id)
+    repo_uri = repo['uri']
+    ids = get_repository_resource_ids(repo_uri)
     ids.each do |id|
-      xml = get_resource_ead_xml(repo_id, id)
+      xml = get_resource_ead_xml(repo_uri, id)
 
       # EAD must have an eadid to index correctly
       next unless validate_ead_id_exists(Nokogiri::XML(xml))
@@ -72,17 +55,21 @@ end
 
 # Get all resource IDs in a repository
 # TODO: shorten response to only IDs which have changed since last run
-def get_repository_resource_ids(repo_id)
-  path = "repositories/#{repo_id}/resources?all_ids=true"
+def get_repository_resource_ids(repo_uri)
+  path = "#{repo_uri}/resources?all_ids=true"
   headers = { 'X-ArchivesSpace-Session': session_token }
 
   res = Net::HTTP.get_response(@base_url + path, headers)
+  unless res.code.to_i == 200
+    puts "Repo #{repo_id} does not exist. Skipping"
+    return []
+  end
   JSON.parse(res.body)
 end
 
 # Fetch an EAD2002 xml for the resource
-def get_resource_ead_xml(repo_id, id)
-  path = "repositories/#{repo_id}/resource_descriptions/#{id}.xml?include_daos=true&ead3=false"
+def get_resource_ead_xml(repo_uri, id)
+  path = "#{repo_uri}/resource_descriptions/#{id}.xml?include_daos=true&ead3=false"
   headers = { 'X-ArchivesSpace-Session': session_token }
 
   res = Net::HTTP.get_response(@base_url + path, headers)
