@@ -24,7 +24,7 @@ RSpec.describe 'Rake tasks' do
         stub_request(:post, 'http://localhost:3001/users/test/login')
           .to_return(status: 200, body: { session: 'token' }.to_json)
         stub_request(:get, 'http://localhost:3001/repositories')
-          .to_return(status: 200, body: [{ position: 1 }].to_json)
+          .to_return(status: 200, body: [{ uri: 'repositories/1' }].to_json)
         stub_request(:get, 'http://localhost:3001/repositories/1/resources?all_ids=true')
           .to_return(status: 200, body: [0].to_json)
         stub_request(:get, 'http://localhost:3001/repositories/1/resource_descriptions/0.xml?ead3=false&include_daos=true')
