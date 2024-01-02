@@ -140,8 +140,6 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise-guests (0.8.1)
-      devise
     devise_cas_authenticatable (2.0.2)
       devise (>= 4.0.0)
       rack-cas
@@ -493,7 +491,6 @@ DEPENDENCIES
   database_cleaner
   debug
   devise
-  devise-guests (~> 0.8)
   devise_cas_authenticatable
   equivalent-xml
   importmap-rails
